@@ -5,6 +5,9 @@
 
 ##### Note - the binaries folder is ~70mb
 
+ansible-playbook -i inventories/hosts playbook.yml -vv
+
+
 _________
 
 ### Changes in Inventory
