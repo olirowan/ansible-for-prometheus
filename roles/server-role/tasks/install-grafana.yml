@@ -1,0 +1,51 @@
+---
+
+- name: Clear grafana install path
+  file:
+    path: "{{ grafana_install_path }}"
+    state: "absent"
+  become: true
+
+
+- name: Create grafana install folder
+  file:
+    path: "{{ grafana_install_path }}"
+    state: "directory"
+    mode: "0775"
+    owner: "{{ monitoring_user }}"
+    group: "{{ monitoring_group }}"
+  become: true
+
+
+- name: Unarchive grafana to install path
+  unarchive:
+    src: "{{ temp_binaries_folder }}/{{ item }}"
+    dest: "{{ grafana_install_path }}"
+    remote_src: yes
+    extra_opts: [--strip-components=1]
+  with_items:
+    - grafana-4.6.3.linux-x64.tar.gz
+
+
+- name: Deploy Grafana service file
+  template:
+    mode: "0755"
+    src: templates/grafana.service.j2
+    dest: "{{ service_path }}grafana.service"
+
+
+- name: Deploy Grafana config file
+  template:
+    mode: "0755"
+    src: templates/custom.ini.j2
+    dest: "{{ grafana_install_path }}/conf/custom.ini"
+
+
+- name: Reload systemctl
+  command: "sudo systemctl daemon-reload"
+
+
+- name: Make sure a service is running
+  systemd:
+    state: started
+    name: grafana

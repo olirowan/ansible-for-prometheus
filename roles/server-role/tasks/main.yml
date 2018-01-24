@@ -1,0 +1,11 @@
+---
+
+
+- name: Copy requires binaries
+  include: copy-binaries.yml
+
+- name: Install Prometheus
+  include: install-prometheus.yml
+
+- name: Install Grafana
+  include: install-grafana.yml

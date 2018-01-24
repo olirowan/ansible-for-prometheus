@@ -1,0 +1,13 @@
+[Unit]
+Description=Prometheus
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User={{ monitoring_user }}
+Group={{ monitoring_group }}
+Type=simple
+ExecStart={{ prometheus_install_path }}/prometheus --config.file {{ prometheus_config }}/prometheus.yml --storage.tsdb.path {{ data_folder }}/prometheus/
+
+[Install]
+WantedBy=multi-user.target

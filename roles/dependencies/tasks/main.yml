@@ -1,0 +1,5 @@
+---
+
+- name: Ensure dependencies are met
+  include: dependencies.yml
+

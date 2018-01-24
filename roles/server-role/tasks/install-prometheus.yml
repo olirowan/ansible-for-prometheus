@@ -1,0 +1,44 @@
+---
+
+- name: Clear prometheus install path
+  file:
+    path: "{{ prometheus_install_path }}"
+    state: "absent"
+  become: true
+
+
+- name: Create temp binaries folder
+  file:
+    path: "{{ prometheus_install_path }}"
+    state: "directory"
+    mode: "0775"
+    owner: "{{ monitoring_user }}"
+    group: "{{ monitoring_group }}"
+  become: true
+
+
+- name: Unarchive prometheus to install path
+  unarchive:
+    src: "{{ temp_binaries_folder }}/{{ item }}"
+    dest: "{{ prometheus_install_path }}"
+    remote_src: yes
+    extra_opts: [--strip-components=1]
+  with_items:
+    - prometheus-2.0.0.linux-amd64.tar.gz
+
+
+- name: Deploy Prometheus service file
+  template:
+    mode: "0755"
+    src: "templates/prometheus.service.j2"
+    dest: "{{ service_path }}/prometheus.service"
+
+
+- name: Reload systemctl
+  command: "sudo systemctl daemon-reload"
+
+
+- name: Make sure a service is running
+  systemd:
+    state: started
+    name: prometheus

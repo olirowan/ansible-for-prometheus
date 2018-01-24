@@ -1,0 +1,4 @@
+---
+
+- name: Deploy config files
+  include: deploy-config.yml

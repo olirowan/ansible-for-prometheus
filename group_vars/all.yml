@@ -1,0 +1,25 @@
+---
+
+export_folder: "/export"
+
+log_folder: "{{ export_folder }}/log"
+data_folder: "{{ export_folder }}/data"
+config_folder:  "{{ export_folder }}/config"
+binaries_folder: "{{ export_folder }}/binaries"
+temp_binaries_folder: "{{ binaries_folder }}/temp"
+
+
+grafana_install_path: "{{ export_folder }}/grafana"
+prometheus_install_path: "{{ export_folder }}/prometheus"
+node_exporter_install_path: "{{ export_folder }}/node-exporter"
+
+
+grafana_config: "{{ config_folder }}/grafana"
+prometheus_config: "{{ config_folder }}/prometheus"
+
+
+service_path: "/etc/systemd/system/"
+
+
+monitoring_user: "monitoring"
+monitoring_group: "{{ monitoring_user }}"

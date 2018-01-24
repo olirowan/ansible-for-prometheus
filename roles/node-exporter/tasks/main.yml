@@ -1,0 +1,7 @@
+---
+
+- name: Copy requires binaries
+  include: copy-binaries.yml
+
+- name: Install node_exporter
+  include: install-node-exporter.yml

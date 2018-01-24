@@ -1,0 +1,9 @@
+---
+
+- name: Deploy config files
+
+  hosts: servers
+  roles:
+    - deploy-configs
+
+  become: yes

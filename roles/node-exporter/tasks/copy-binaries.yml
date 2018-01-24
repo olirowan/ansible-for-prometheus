@@ -1,0 +1,26 @@
+---
+
+- name: Clear temp binaries directory
+  file:
+    path: "{{ temp_binaries_folder }}"
+    state: "absent"
+  become: true
+
+- name: Create temp binaries folder
+  file:
+    path: "{{ temp_binaries_folder }}"
+    state: "directory"
+    mode: "0775"
+    owner: "{{ monitoring_user }}"
+    group: "{{ monitoring_group }}"
+  become: true
+
+- name: Copy the binaries into binary folder
+  copy:
+    src: "../../../binaries/{{ item }}"
+    dest: "{{ temp_binaries_folder }}"
+    owner: "{{ monitoring_user }}"
+    group: "{{ monitoring_group }}"
+    mode: 0755
+  with_items:
+    - "{{ node_binary }}"

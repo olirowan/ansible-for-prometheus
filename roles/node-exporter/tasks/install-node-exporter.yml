@@ -1,0 +1,43 @@
+---
+
+- name: Clear node_exporter install path
+  file:
+    path: "{{ node_exporter_install_path }}"
+    state: "absent"
+  become: true
+
+
+- name: Create node_exporter install folder
+  file:
+    path: "{{ node_exporter_install_path }}"
+    state: "directory"
+    mode: "0775"
+    owner: "{{ monitoring_user }}"
+    group: "{{ monitoring_group }}"
+  become: true
+
+
+- name: Unarchive node_exporter to install path
+  unarchive:
+    src: "{{ temp_binaries_folder }}/{{ item }}"
+    dest: "{{ node_exporter_install_path }}"
+    remote_src: yes
+    extra_opts: [--strip-components=1]
+  with_items:
+    - "{{ node_binary }}"
+
+
+- name: Deploy node_exporter service file
+  template:
+    mode: "0755"
+    src: templates/node_exporter.service.j2
+    dest: "{{ service_path }}node_exporter.service"
+
+- name: Reload systemctl
+  command: "sudo systemctl daemon-reload"
+
+
+- name: Make sure a service is running
+  systemd:
+    state: started
+    name: node_exporter

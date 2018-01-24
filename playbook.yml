@@ -1,0 +1,37 @@
+---
+
+- name: Meet dependencies
+
+  hosts: all
+  roles:
+    - dependencies
+
+  become: yes
+
+
+- name: Install and configure Prometheus & Grafana
+
+  hosts: servers
+  roles:
+    - server-role
+
+  become: yes
+
+
+- name: Install and configure Node Exporter
+
+  hosts: all
+  roles:
+    - node-exporter
+
+  become: yes
+  vars:
+
+
+- name: Deploy config files
+
+  hosts: servers
+  roles:
+    - deploy-configs
+
+  become: yes

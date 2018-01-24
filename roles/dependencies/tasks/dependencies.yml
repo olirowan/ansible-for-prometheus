@@ -1,0 +1,33 @@
+---
+
+- name: Install dependancies
+  apt:
+    name: "{{ item }}"
+    state: latest
+  become: true
+  with_items:
+    - git
+    - python
+
+
+- name: Create monitoring group
+  group:
+    name: "{{ monitoring_group }}"
+    state: present
+  become: true
+
+
+- name: Add monitoring user user
+  user:
+    name: "{{ monitoring_user }}"
+    group: "{{ monitoring_group }}"
+  become: true
+
+- name: Create folder for install path
+  file:
+    path: "{{ export_folder }}"
+    state: directory
+    mode: 0755
+    owner: "{{ monitoring_user }}"
+    group: "{{ monitoring_group }}"
+    recurse: yes

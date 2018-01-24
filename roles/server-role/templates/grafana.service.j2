@@ -1,0 +1,13 @@
+[Unit]
+Description=Grafana
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User={{ monitoring_user }}
+Group={{ monitoring_group }}
+Type=simple
+ExecStart={{ grafana_install_path }}/bin/grafana-server --config {{ grafana_install_path }}/conf/custom.ini -homepath {{ grafana_install_path }}
+
+[Install]
+WantedBy=multi-user.target
