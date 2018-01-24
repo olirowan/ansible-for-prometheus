@@ -8,7 +8,6 @@
   become: true
   with_items:
     - "{{ prometheus_config }}"
-    - "{{ grafana_config }}"
 
 
 - name: Create config folder
@@ -21,7 +20,6 @@
   become: true
   with_items:
     - "{{ prometheus_config }}"
-    - "{{ grafana_config }}"
 
 
 - name: Deploy Prometheus config file
