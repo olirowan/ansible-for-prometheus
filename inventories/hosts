@@ -1,16 +1,16 @@
 [pis]
 
-192.168.1.72
-192.168.1.117
-192.168.1.118
+192.168.1.121
+192.168.1.122
+192.168.1.131
 
 [pis:vars]
-node_binary=node_exporter-0.15.2.linux-armv7.tar.gz
+node_binary=node_exporter-0.16.0.linux-armv7.tar.gz
 
 
 [servers]
 
-192.168.1.80
+192.168.1.151
 
 [servers:vars]
-node_binary=node_exporter-0.15.2.linux-amd64.tar.gz
+node_binary=node_exporter-0.16.0.linux-amd64.tar.gz
