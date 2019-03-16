@@ -11,7 +11,7 @@
 
 - name: Install and configure Prometheus & Grafana
 
-  hosts: servers
+  hosts: monitoring_servers
   roles:
     - server-role
 
@@ -20,7 +20,10 @@
 
 - name: Install and configure Node Exporter
 
-  hosts: all
+  hosts:
+    - pi_servers
+    - docker_servers
+    - prox_servers
   roles:
     - node-exporter
 
@@ -30,7 +33,7 @@
 
 - name: Deploy config files
 
-  hosts: servers
+  hosts: monitoring_servers
   roles:
     - deploy-configs
 

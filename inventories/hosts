@@ -1,16 +1,28 @@
-[pis]
+[pi_servers]
 
 192.168.1.121
 192.168.1.122
 192.168.1.131
 
-[pis:vars]
+[pi_servers:vars]
 node_binary=node_exporter-0.16.0.linux-armv7.tar.gz
 
 
-[servers]
+[docker_servers]
 
 192.168.1.151
+192.168.1.152
 
 [servers:vars]
 node_binary=node_exporter-0.16.0.linux-amd64.tar.gz
+
+
+[prox_servers]
+
+192.168.1.145
+
+[prox_servers:vars]
+node_binary=node_exporter-0.16.0.linux-amd64.tar.gz
+
+
+[monitoring_servers]

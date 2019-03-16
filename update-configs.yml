@@ -2,7 +2,7 @@
 
 - name: Deploy config files
 
-  hosts: servers
+  hosts: monitoring_servers
   roles:
     - deploy-configs
 
