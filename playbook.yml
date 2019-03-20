@@ -2,7 +2,8 @@
 
 - name: Meet dependencies
 
-  hosts: all
+  hosts:
+    - all
   roles:
     - dependencies
 
@@ -11,7 +12,8 @@
 
 - name: Install and configure Prometheus & Grafana
 
-  hosts: monitoring_servers
+  hosts:
+    - monitoring_servers
   roles:
     - server-role
 
@@ -28,12 +30,12 @@
     - node-exporter
 
   become: yes
-  vars:
 
 
 - name: Deploy config files
 
-  hosts: monitoring_servers
+  hosts:
+    - monitoring_servers
   roles:
     - deploy-configs
 
