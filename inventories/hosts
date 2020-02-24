@@ -23,6 +23,3 @@ node_binary=node_exporter-0.16.0.linux-amd64.tar.gz
 
 [prox_servers:vars]
 node_binary=node_exporter-0.16.0.linux-amd64.tar.gz
-
-
-[monitoring_servers]
